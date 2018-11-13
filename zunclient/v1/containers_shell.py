@@ -180,6 +180,15 @@ def _show_container(container):
                 'retries: Consecutive failures needed to report unhealthy. '
                 'timeout: Maximum time to allow one check to run (s|m|h)'
                 '         (default 0s).')
+@utils.arg('--cpu-policy',
+           dest='cpu_policy',
+           metavar='<cpu_policy>',
+           choices=['shared', 'dedicated'],
+           default='shared',
+           help='set cpu policy to this container. '
+                'It can have following values: '
+                '"shared": share the pCPU with different container.'
+                '"dedicated": different container use different pCPU.')
 def do_create(cs, args):
     """Create a container."""
     opts = {}
@@ -201,6 +210,7 @@ def do_create(cs, args):
     opts['disk'] = args.disk
     opts['availability_zone'] = args.availability_zone
     opts['command'] = args.command
+    opts['cpu_policy'] = args.cpu_policy
     if args.healthcheck:
         opts['healthcheck'] = zun_utils.parse_health(args.healthcheck)
 
@@ -700,6 +710,15 @@ def do_kill(cs, args):
                 'retries: Consecutive failures needed to report unhealthy. '
                 'timeout: Maximum time to allow one check to run (s|m|h)'
                 '         (default 0s).')
+@utils.arg('--cpu-policy',
+           dest='cpu_policy',
+           metavar='<cpu_policy>',
+           choices=['shared', 'dedicated'],
+           default='shared',
+           help='set cpu policy to this container. '
+                'It can have following values: '
+                '"shared": share the pCPU with different container. '
+                '"dedicated": different container use different pCPU. ')
 def do_run(cs, args):
     """Run a command in a new container."""
     opts = {}
@@ -721,6 +740,7 @@ def do_run(cs, args):
     opts['disk'] = args.disk
     opts['availability_zone'] = args.availability_zone
     opts['command'] = args.command
+    opts['cpu_policy'] = args.cpu_policy
     if args.healthcheck:
         opts['healthcheck'] = zun_utils.parse_health(args.healthcheck)
 

@@ -206,6 +206,16 @@ class CreateContainer(command.ShowOne):
                  'retries: Consecutive failures needed to report unhealthy.'
                  'timeout: Maximum time to allow one check to run (s|m|h)'
                  '         (default 0s).')
+        parser.add_argument(
+            '--cpu-policy',
+            dest='cpu_policy',
+            metavar='<cpu_policy>',
+            choices=['shared', 'dedicated'],
+            default='shared',
+            help='set cpu policy to this container. '
+                 'It can have following values: '
+                 '"shared": share the pCPU with different container. '
+                 '"dedicated": different container use different pCPU. ')
         return parser
 
     def take_action(self, parsed_args):
@@ -241,6 +251,7 @@ class CreateContainer(command.ShowOne):
         opts['hostname'] = parsed_args.hostname
         opts['disk'] = parsed_args.disk
         opts['availability_zone'] = parsed_args.availability_zone
+        opts['cpu_policy'] = parsed_args.cpu_policy
         if parsed_args.auto_heal:
             opts['auto_heal'] = parsed_args.auto_heal
         if parsed_args.healthcheck:
@@ -860,6 +871,16 @@ class RunContainer(command.ShowOne):
                  'retries: Consecutive failures needed to report unhealthy.'
                  'timeout: Maximum time to allow one check to run (s|m|h)'
                  '         (default 0s).')
+        parser.add_argument(
+            '--cpu-policy',
+            dest='cpu_policy',
+            metavar='<cpu_policy>',
+            choices=['shared', 'dedicated'],
+            default='shared',
+            help='set cpu policy to this container. '
+                 'It can have following values: '
+                 '"shared": share the pCPU with different container. '
+                 '"dedicated": different container use different pCPU. ')
         return parser
 
     def take_action(self, parsed_args):
@@ -894,6 +915,7 @@ class RunContainer(command.ShowOne):
         opts['runtime'] = parsed_args.runtime
         opts['hostname'] = parsed_args.hostname
         opts['disk'] = parsed_args.disk
+        opts['cpu_policy'] = parsed_args.cpu_policy
         opts['availability_zone'] = parsed_args.availability_zone
         if parsed_args.auto_heal:
             opts['auto_heal'] = parsed_args.auto_heal
