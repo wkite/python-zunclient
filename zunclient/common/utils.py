@@ -241,7 +241,7 @@ def parse_mounts(mounts):
             raise apiexec.CommandError(err_msg % mnt)
 
         type = mount_info.get('type', 'volume')
-        if type not in ('volume', 'bind'):
+        if type not in ('volume', 'dir', 'bind'):
             raise apiexec.CommandError(err_msg % mnt)
 
         if type == 'bind':

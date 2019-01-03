@@ -118,7 +118,8 @@ class ContainerManager(base.Manager):
         mounts = kwargs.get('mounts', None)
         if mounts:
             for mount in mounts:
-                if mount['type'] == 'bind':
+                volume_type = mount.get('type', 'volume')
+                if volume_type == 'bind':
                     mount['source'] = utils.encode_file_data(mount['source'])
 
     def delete(self, id, **kwargs):
