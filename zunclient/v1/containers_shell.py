@@ -83,6 +83,10 @@ def _show_container(container):
            metavar='<KEY=VALUE>',
            action='append', default=[],
            help='The environment variables')
+@utils.arg('--host',
+           metavar='<host>',
+           help='The destination host for the container'
+           )
 @utils.arg('--workdir',
            metavar='<workdir>',
            help='The working directory for commands to run in')
@@ -198,6 +202,7 @@ def do_create(cs, args):
     opts['cpu'] = args.cpu
     opts['environment'] = zun_utils.format_args(args.environment)
     opts['auto_remove'] = args.auto_remove
+    opts['host'] = args.host
     opts['workdir'] = args.workdir
     opts['labels'] = zun_utils.format_args(args.label)
     opts['image_pull_policy'] = args.image_pull_policy
@@ -614,6 +619,10 @@ def do_kill(cs, args):
            metavar='<KEY=VALUE>',
            action='append', default=[],
            help='The environment variables')
+@utils.arg('--host',
+           metavar='<host>',
+           help='The destination host for the container'
+           )
 @utils.arg('--workdir',
            metavar='<workdir>',
            help='The working directory for commands to run in')
@@ -727,6 +736,7 @@ def do_run(cs, args):
     opts['memory'] = args.memory
     opts['cpu'] = args.cpu
     opts['environment'] = zun_utils.format_args(args.environment)
+    opts['host'] = args.host
     opts['workdir'] = args.workdir
     opts['auto_remove'] = args.auto_remove
     opts['labels'] = zun_utils.format_args(args.label)

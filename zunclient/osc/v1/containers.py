@@ -70,6 +70,10 @@ class CreateContainer(command.ShowOne):
             action='append', default=[],
             help='The environment variables')
         parser.add_argument(
+            '--host',
+            metavar='<host>',
+            help='The destination host for the container')
+        parser.add_argument(
             '--workdir',
             metavar='<workdir>',
             help='The working directory for commands to run in')
@@ -226,6 +230,7 @@ class CreateContainer(command.ShowOne):
         opts['memory'] = parsed_args.memory
         opts['cpu'] = parsed_args.cpu
         opts['environment'] = zun_utils.format_args(parsed_args.environment)
+        opts['host'] = parsed_args.host
         opts['workdir'] = parsed_args.workdir
         opts['labels'] = zun_utils.format_args(parsed_args.label)
         opts['image_pull_policy'] = parsed_args.image_pull_policy
@@ -735,6 +740,10 @@ class RunContainer(command.ShowOne):
             action='append', default=[],
             help='The environment variables')
         parser.add_argument(
+            '--host',
+            metavar='<host>',
+            help='The destination host for the container')
+        parser.add_argument(
             '--workdir',
             metavar='<workdir>',
             help='The working directory for commands to run in')
@@ -891,6 +900,7 @@ class RunContainer(command.ShowOne):
         opts['memory'] = parsed_args.memory
         opts['cpu'] = parsed_args.cpu
         opts['environment'] = zun_utils.format_args(parsed_args.environment)
+        opts['host'] = parsed_args.host
         opts['workdir'] = parsed_args.workdir
         opts['labels'] = zun_utils.format_args(parsed_args.label)
         opts['image_pull_policy'] = parsed_args.image_pull_policy
