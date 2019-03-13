@@ -254,6 +254,13 @@ def parse_mounts(mounts):
     return parsed_mounts
 
 
+def parse_ip(address):
+    if address is None:
+        return None
+    if netutils.is_valid_ip(address):
+        return address
+
+
 def parse_nets(ns):
     err_msg = ("Invalid nets argument '%s'. nets arguments must be of "
                "the form --nets <network=network, v4-fixed-ip=ip-addr,"

@@ -198,6 +198,12 @@ class CreateContainer(command.ShowOne):
             default=False,
             help='Give extended privileges to this container')
         parser.add_argument(
+            '--dns',
+            dest='dns',
+            metavar='<dns>',
+            default=None,
+            help='Set custom DNS server to this container')
+        parser.add_argument(
             '--healthcheck',
             action='append',
             default=[],
@@ -249,6 +255,8 @@ class CreateContainer(command.ShowOne):
             opts['interactive'] = True
         if parsed_args.privileged:
             opts['privileged'] = True
+        if parsed_args.dns:
+            opts['dns'] = parsed_args.dns
         opts['hints'] = zun_utils.format_args(parsed_args.hint)
         opts['nets'] = zun_utils.parse_nets(parsed_args.net)
         opts['mounts'] = zun_utils.parse_mounts(parsed_args.mount)
@@ -868,6 +876,12 @@ class RunContainer(command.ShowOne):
             default=False,
             help='Give extended privileges to this container')
         parser.add_argument(
+            '--dns',
+            dest='dns',
+            metavar='<dns>',
+            default=None,
+            help='Set custom DNS server to this container')
+        parser.add_argument(
             '--healthcheck',
             action='append',
             default=[],
@@ -919,6 +933,8 @@ class RunContainer(command.ShowOne):
             opts['interactive'] = True
         if parsed_args.privileged:
             opts['privileged'] = True
+        if parsed_args.dns:
+            opts['dns'] = parsed_args.dns
         opts['hints'] = zun_utils.format_args(parsed_args.hint)
         opts['nets'] = zun_utils.parse_nets(parsed_args.net)
         opts['mounts'] = zun_utils.parse_mounts(parsed_args.mount)
